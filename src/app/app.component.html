@@ -1,0 +1,50 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+
+  <div class="form-group">
+    <label for="taskName">Task Name</label>
+    <input type="taskName" class="form-control" [(ngModel)]="name" id="taskName" aria-describedby="Task Name"
+           placeholder="Enter Task Name" />
+  </div>
+  <div class="form-group">
+    <label for="due">Password</label>
+    <input type="date" class="form-control" [(ngModel)]="due" id="due" placeholder="Due Date">
+  </div>
+  <div class="form-group">
+    <label for="status" class="form-control" aria-describedby="Status">Task Status</label>
+    <select [(ngModel)]="status" multiple class="form-control" id="status">
+      <option value="inProgress">inProgress</option>
+      <option value="Complete">Complete</option>
+    </select>
+
+    <label for="description" class="form-control" aria-describedby="Descriptioon">Description</label>
+    <textarea [(ngModel)]="description" class="form-control" id="description" rows="3"></textarea>
+  </div>
+  <button disabled="{{(name.length > 0) ? '' : 'something'}}" (click)="newItem()" class="btn btn-primary">Save Task {{data.length}}</button>
+  <button disabled="{{(name.length > 0) ? '' : 'something'}}" (click)="deleteComplete()" class="btn btn-primary">Delete Complete {{completeLength}}</button>
+  <table class="table table-hover">
+    <tr>
+      <th> # </th>
+      <th> Name </th>
+      <th> Due Date </th>
+      <th> Status </th>
+      <th> Description </th>
+      <th> Delete? </th>
+    </tr>
+    <tr *ngFor="let item of data; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.due}}</td>
+      <td>{{item.status}}</td>
+      <td>{{item.description}}</td>
+      <td><div *ngIf="item.name.length > 0">
+        <button (click)="deleteItem()" class="btn btn-primary">{{item.name}}</button>
+      </div></td>
+
+    </tr>
+  </table>
+
+</div>
