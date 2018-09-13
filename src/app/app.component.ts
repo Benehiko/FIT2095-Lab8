@@ -12,26 +12,35 @@ export class AppComponent {
   due = '';
   status = '';
   description = '';
-  completeLength = 0;
+  complete = 0;
   newItem() {
     this.data.push({'name': this.name, 'due': this.due, 'status': this.status, 'description': this.description});
-    if (this.status === 'Complete') {
-      this.completeLength++;
+    if (this.status == 'complete') {
+      this.complete++;
     }
   }
-  deleteItem() {
+  deleteItem(name) {
     for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i].name === this.name) {
+      const item = this.data[i];
+      if (item.name === name) {
+        if (item.status == 'complete') {
+          this.complete--;
+        }
         this.data.splice(i, 1);
+        break;
       }
     }
   }
   deleteComplete() {
+    const index = [];
     for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i].status === 'Complete') {
-        this.data.splice(i, 1);
-        this.completeLength--;
+      if (this.data[i].status == 'inProgress') {
+        index.push(this.data[i]);
+      } else {
+        this.complete--;
       }
     }
+    this.data = [];
+    this.data = this.data.concat(index);
   }
 }
